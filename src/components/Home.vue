@@ -1,22 +1,21 @@
 <template>
     <div class="quiz-main-body">
         <div class="quiz-main-template">
-            <HeaderTimeline/>
-            <div class="questions-radio-div outer-box">
+            <HeaderTimeline class="outer-box"/>
+            <QuestionsRadio class="outer-box" />
+            <!-- <div class="next-button-div outer-box">
                 ho
-            </div>
-            <div class="next-button-div outer-box">
-                ho
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
   
   <script lang="ts">
   import HeaderTimeline from './HeaderTimeline.vue'
-  
+  import QuestionsRadio from './QuestionsRadio.vue';
+
   export default {
-    components: { HeaderTimeline },
+    components: { HeaderTimeline, QuestionsRadio },
     name: 'home',
     data () {
       return {
@@ -35,24 +34,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(0, 26, 255);
+    background-color: #ffffff;
 }
 .quiz-main-template {
     position: fixed;
     width: 1280px;
-    height: 645px;
-    background-color: rgb(250, 212, 163);
+    height: 465px;
+    background-color: #f5f1e5;
 }
 .outer-box {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 215px;
-}
-.questions-radio-div {
-    background-color: rgb(95, 35, 13);
-    height: 60%;
+    /* height: 215px; */
 }
 .next-button-div {
     background-color: rgb(67, 10, 75);

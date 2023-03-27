@@ -1,9 +1,12 @@
 <template>
-    <div class="questions-timeline-div outer-box">
+    <div class="questions-timeline-div">
         <div class="questions-timeline">
             <span id="questions-timeline-title">Questionário</span>
             <div class="main-timeline">
-
+                <div class="timeline-bar">
+                  <div class="timeline-bar-gauge"></div>
+                </div>
+                <div class="question-mark">Pergunta {{ currentQuestionNumber }} de {{ totalNumberOfQuestions }}</div>
             </div>
         </div>
     </div>
@@ -14,7 +17,8 @@
     name: 'HeaderTimeline',
     data () {
       return {
-        msg: ''
+        currentQuestionNumber: 1,
+        totalNumberOfQuestions: 5
       }
     }
   }
@@ -22,26 +26,55 @@
 
 <style>
 .questions-timeline-div {
-    background-color: coral;
+    height: 140px;
+    /* background-color: rgb(252, 206, 189); */
 }
 .questions-timeline {
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     width: 95%;
-    height: 80%;
+    height: 60%;
 }
 .main-timeline {
-    background-color: burlywood;
+    /* display: block; */
+    /* background-color: burlywood; */
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 90%;
+    height: 70%;
+    /* padding-top: 30px; */
+}
+.timeline-bar {
+  /* display: block; */
+  background-color: #d0d3da;
+  border-radius: 10px;
+  width: 100%;
+  height: 12px;
+  /* margin-top: 50px; */
+}
+.question-mark {
+  display: flex;
+  color: #889190;
+  /* background-color: aliceblue; */
+  /* padding-left: 10px; */
+  padding-top: 10px;
+  /* margin-top: 50px; */
+}
+.timeline-bar-gauge {
+  background-color: #e72627;
+  border-radius: 10px;
+  width: 30%;
+  height: 100%;
 }
 #questions-timeline-title {
     display: flex;
     font-size: 14pt;
     font-weight:bold;
-    color: red;
+    color: #e72627;
     justify-items: start;
     width: 100%;
-    background-color: black;
+    height: 40%;
+    margin-bottom: 20px;
+    /* background-color: black; */
 }
 
 </style>
