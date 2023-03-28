@@ -29,6 +29,7 @@ import { computed } from 'vue';
     name: 'QuestionsRadio',
     data() {
         return {
+            // should be allocated in store so the main bar can grow as the array grows.
             checkedMap: new Array<number>()
         }
     },
@@ -36,7 +37,7 @@ import { computed } from 'vue';
         GetLastChecked(checkedMap : number[], store : any) {
             let index = 0;
             store.state.answeresArray[store.state.questionNumber - 1].answeres.forEach(() => {
-                const el = document.getElementById(`radnor-${index}`);
+                const el = document.getElementById(`radnor-${index}`) as HTMLInputElement;
                 if(el != null) {
                     if(el.checked) {
                         checkedMap.push(index);
@@ -51,7 +52,7 @@ import { computed } from 'vue';
         ReturnOptions(checkedMap : number[], store : any) {
             store.state.answeresArray[store.state.questionNumber - 1].answeres.forEach(() => {
                 let index = 0;
-                const el = document.getElementById(`radnor-${index}`);
+                const el = document.getElementById(`radnor-${index}`) as HTMLInputElement;
                 if(el != null) {
                     if(el.checked) {
                        el.checked = false;
@@ -61,7 +62,7 @@ import { computed } from 'vue';
             });
             store.commit('decrementQuestionNumber');
             const lastIndex = checkedMap.pop();
-            const el = document.getElementById(`radnor-${lastIndex}`);
+            const el = document.getElementById(`radnor-${lastIndex}`) as HTMLInputElement;
             if(el!= null) {
                 el.checked = true;
             }
