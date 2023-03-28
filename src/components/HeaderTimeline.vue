@@ -6,7 +6,7 @@
                 <div class="timeline-bar">
                   <div class="timeline-bar-gauge"></div>
                 </div>
-                <div class="question-mark">Pergunta {{ currentQuestionNumber }} de {{ totalNumberOfQuestions }}</div>
+                <div class="question-mark">Pergunta {{ $store.state.questionNumber }} de {{ $store.state.totalQuestionsNumber }}</div>
             </div>
         </div>
     </div>
@@ -15,12 +15,6 @@
   <script lang="ts">
   export default {
     name: 'HeaderTimeline',
-    data () {
-      return {
-        currentQuestionNumber: 1,
-        totalNumberOfQuestions: 5
-      }
-    }
   }
 </script>
 
