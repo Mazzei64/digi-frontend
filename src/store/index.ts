@@ -17,6 +17,12 @@ export default new Vuex.Store({
     checkedMapLen : 0
   },
   getters: {
+    totalQuestionsNumber(state) {
+      return state.totalQuestionsNumber;
+    },
+    questionNumber(state) {
+      return state.questionNumber;
+    }
   },
   mutations: {
     updateMapLen(state, len : number) {
@@ -33,6 +39,7 @@ export default new Vuex.Store({
 
       let arrayIndex: number = 0;
       state.jsonResult.forEach(element => {
+        if(arrayIndex == 3) return;
         state.totalQuestionsNumber++;
         const jsonElement = ParseToJson(JSON.stringify(element));
         state.answeresArray.push(new AnsweresStruct());
@@ -51,7 +58,5 @@ export default new Vuex.Store({
           commit('fetchQuestions', response);
         })
     }
-  },
-  modules: {
   }
 })

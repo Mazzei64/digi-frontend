@@ -1,14 +1,14 @@
 <template >
     <div class="quiz-main-body">
-        <div v-if="$store.state.questionNumber > $store.state.totalQuestionsNumber" class="quiz-main-template">
+        <div v-if="$store.state.questionNumber <= $store.state.totalQuestionsNumber" class="quiz-main-template">
             <HeaderTimeline class="outer-box"/>
             <QuestionsRadio class="outer-box" />
             <!-- <Test/> -->
         </div>
-        <div v-if="$store.state.questionNumber <= $store.state.totalQuestionsNumber" class="quiz-main-template">
+        <div v-if="$store.state.questionNumber > $store.state.totalQuestionsNumber" class="quiz-main-template">
           <div class="results-main-div">
-            <span class="results-main-title">Seu Resultado Foi De:</span>
-            <div class="final-result-value">60%</div>
+            <span id="results-main-title">Seu Resultado Foi De:</span>
+            <div class="final-result-value">{{ resultPercents }}%</div>
           </div>
         </div>
     </div>
@@ -24,6 +24,27 @@
     name: 'home',
     created() {
       this.$store.dispatch('fetchQuestions')
+    },
+    updated() {
+      if(document.getElementById('results-main-title') != null) {
+        this.CalculateResult(this.$store);
+      }
+    },
+    data() {
+      return {
+        resultPercents : 0,
+      }
+    },
+    methods: {
+      CalculateResult(store) {
+          let correct = 0;
+          for(let i = 0; i < store.state.totalQuestionsNumber; i++) {
+            if(store.state.answeresArray[i].correctAnswer === store.state.answeresArray[i].checked) {
+              correct++;
+            }
+          }
+          this.resultPercents =  ((100 * correct ) / store.state.totalQuestionsNumber).toFixed(0);
+        }
     }
   }
 </script>
@@ -64,7 +85,7 @@
   align-items: center;
   /* background-color: #000000; */
 }
-.results-main-title {
+#results-main-title {
   color: #000000;
   font-size: 40pt;
   font-weight: bold;
