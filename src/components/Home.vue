@@ -17,10 +17,9 @@
   <script>
   import HeaderTimeline from './HeaderTimeline.vue';
   import QuestionsRadio from './QuestionsRadio.vue';
-  import Test from './Test.vue';
 
   export default {
-    components: { Test, HeaderTimeline, QuestionsRadio },
+    components: { HeaderTimeline, QuestionsRadio },
     name: 'home',
     created() {
       this.$store.dispatch('fetchQuestions')
