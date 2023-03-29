@@ -1,7 +1,6 @@
 import axios from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
-import JSONObject from './../utils/jsonType';
 import ParseToJson from './../utils/jsonType';
 import ShuffleArray from './../utils/shuffle';
 import AnsweresStruct from './../utils/AnswerStruct';

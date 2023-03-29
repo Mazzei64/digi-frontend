@@ -23,13 +23,10 @@
 </template>
   
 <script lang="ts">
-import { computed } from 'vue';
-
   export default {
     name: 'QuestionsRadio',
     data() {
         return {
-            // should be allocated in store so the main bar can grow as the array grows.
             checkedMap: new Array<number>()
         }
     },
@@ -49,10 +46,6 @@ import { computed } from 'vue';
             return state;
         },
         GetLastChecked(checkedMap : number[], store : any) : void {
-                let index = 0;
-                if(store.state.questionNumber > store.state.totalQuestionsNumber) {
-
-                }
                 if(store.state.questionNumber < checkedMap.length) {
                     store.commit('incrementQuestionNumber');
                     const el = document.getElementById(`radnor-${checkedMap[store.state.questionNumber - 1]}`) as HTMLInputElement;

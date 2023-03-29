@@ -12,7 +12,7 @@
     </div>
 </template>
   
-  <script lang="ts">
+<script lang="ts">
   export default {
     name: 'HeaderTimeline',
   }
@@ -21,37 +21,27 @@
 <style>
 .questions-timeline-div {
     height: 140px;
-    /* background-color: rgb(252, 206, 189); */
 }
 .questions-timeline {
-    /* background-color: aliceblue; */
     width: 95%;
     height: 60%;
 }
 .main-timeline {
-    /* display: block; */
-    /* background-color: burlywood; */
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 70%;
-    /* padding-top: 30px; */
 }
 .timeline-bar {
-  /* display: block; */
   background-color: #d0d3da;
   border-radius: 10px;
   width: 100%;
   height: 12px;
-  /* margin-top: 50px; */
 }
 .question-mark {
   display: flex;
   color: #889190;
-  /* background-color: aliceblue; */
-  /* padding-left: 10px; */
   padding-top: 10px;
-  /* margin-top: 50px; */
 }
 .timeline-bar-gauge {
   background-color: #e72627;
@@ -70,7 +60,6 @@
     width: 100%;
     height: 40%;
     margin-bottom: 20px;
-    /* background-color: black; */
 }
 
 </style>

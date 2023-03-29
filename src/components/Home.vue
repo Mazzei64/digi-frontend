@@ -3,14 +3,13 @@
         <div v-if="$store.state.questionNumber <= $store.state.totalQuestionsNumber" class="quiz-main-template">
             <HeaderTimeline class="outer-box"/>
             <QuestionsRadio class="outer-box" />
-            <!-- <Test/> -->
         </div>
         <div v-if="$store.state.questionNumber > $store.state.totalQuestionsNumber" class="quiz-main-template">
         </div>
     </div>
 </template>
   
-  <script>
+<script>
   import HeaderTimeline from './HeaderTimeline.vue';
   import QuestionsRadio from './QuestionsRadio.vue';
   import Test from './Test.vue';
@@ -20,11 +19,6 @@
     name: 'home',
     created() {
       this.$store.dispatch('fetchQuestions')
-    },
-    data () {
-      return {
-        msg: ''
-      }
     }
   }
 </script>
@@ -57,8 +51,6 @@
     background-color: rgb(67, 10, 75);
     height: 20%;
 }
-
-
 
 </style>
   
