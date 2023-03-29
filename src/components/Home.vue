@@ -22,7 +22,7 @@
     components: { HeaderTimeline, QuestionsRadio },
     name: 'home',
     created() {
-      this.$store.dispatch('fetchQuestions')
+      this.$store.dispatch('GetQuestionsCount');
     },
     updated() {
       if(document.getElementById('results-main-title') != null) {

@@ -70,6 +70,7 @@ import { computed } from 'vue';
                         store.commit('updateMapLen', checkedMap.length);
                         el.checked = false;
                         store.commit('incrementQuestionNumber');
+                        store.dispatch('fetchQuestions', store.state.questionNumber - 1);
                         return;
                     }
                 }
