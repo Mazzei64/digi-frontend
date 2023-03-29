@@ -50,6 +50,9 @@ import { computed } from 'vue';
         },
         GetLastChecked(checkedMap : number[], store : any) : void {
                 let index = 0;
+                if(store.state.questionNumber > store.state.totalQuestionsNumber) {
+
+                }
                 if(store.state.questionNumber < checkedMap.length) {
                     store.commit('incrementQuestionNumber');
                     const el = document.getElementById(`radnor-${checkedMap[store.state.questionNumber - 1]}`) as HTMLInputElement;
@@ -63,6 +66,7 @@ import { computed } from 'vue';
                 if(el != null) {
                     if(el.checked) {
                         checkedMap[store.state.questionNumber - 1] = checkedIndex;
+                        store.commit('updateMapLen', checkedMap.length);
                         el.checked = false;
                         store.commit('incrementQuestionNumber');
                         return;

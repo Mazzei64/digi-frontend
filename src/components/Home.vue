@@ -1,9 +1,11 @@
 <template >
     <div class="quiz-main-body">
-        <div class="quiz-main-template">
+        <div v-if="$store.state.questionNumber <= $store.state.totalQuestionsNumber" class="quiz-main-template">
             <HeaderTimeline class="outer-box"/>
             <QuestionsRadio class="outer-box" />
             <!-- <Test/> -->
+        </div>
+        <div v-if="$store.state.questionNumber > $store.state.totalQuestionsNumber" class="quiz-main-template">
         </div>
     </div>
 </template>

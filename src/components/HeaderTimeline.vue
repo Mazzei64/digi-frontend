@@ -4,7 +4,7 @@
             <span id="questions-timeline-title">Questionário</span>
             <div class="main-timeline">
                 <div class="timeline-bar">
-                  <div class="timeline-bar-gauge"></div>
+                  <div :style="`max-width: ${(100 * $store.state.checkedMapLen) / $store.state.totalQuestionsNumber}%;`" class="timeline-bar-gauge"></div>
                 </div>
                 <div class="question-mark">Pergunta {{ $store.state.questionNumber }} de {{ $store.state.totalQuestionsNumber }}</div>
             </div>
@@ -56,7 +56,9 @@
 .timeline-bar-gauge {
   background-color: #e72627;
   border-radius: 10px;
-  width: 30%;
+  width: 100%;
+  max-width: 0%;
+  transition: max-width 0.2s ease;
   height: 100%;
 }
 #questions-timeline-title {
