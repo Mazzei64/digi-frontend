@@ -1,11 +1,15 @@
 <template >
     <div class="quiz-main-body">
-        <div v-if="$store.state.questionNumber <= $store.state.totalQuestionsNumber" class="quiz-main-template">
+        <div v-if="$store.state.questionNumber > $store.state.totalQuestionsNumber" class="quiz-main-template">
             <HeaderTimeline class="outer-box"/>
             <QuestionsRadio class="outer-box" />
             <!-- <Test/> -->
         </div>
-        <div v-if="$store.state.questionNumber > $store.state.totalQuestionsNumber" class="quiz-main-template">
+        <div v-if="$store.state.questionNumber <= $store.state.totalQuestionsNumber" class="quiz-main-template">
+          <div class="results-main-div">
+            <span class="results-main-title">Seu Resultado Foi De:</span>
+            <div class="final-result-value">60%</div>
+          </div>
         </div>
     </div>
 </template>
@@ -20,11 +24,6 @@
     name: 'home',
     created() {
       this.$store.dispatch('fetchQuestions')
-    },
-    data () {
-      return {
-        msg: ''
-      }
     }
   }
 </script>
@@ -57,8 +56,29 @@
     background-color: rgb(67, 10, 75);
     height: 20%;
 }
-
-
+.results-main-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #000000; */
+}
+.results-main-title {
+  color: #000000;
+  font-size: 40pt;
+  font-weight: bold;
+  position: absolute;
+  top: 25%;
+}
+.final-result-value {
+  position: absolute;
+  display: block;
+  font-size: 100pt;
+  font-weight: bold;
+  color: #000000;
+  bottom: 20%;
+}
 
 </style>
   
