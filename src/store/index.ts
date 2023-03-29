@@ -50,21 +50,18 @@ export default new Vuex.Store({
       state.answeresArray[state.arrayIndex].answeres = [state.answeresArray[state.arrayIndex].correctAnswer, ...JSON.parse(JSON.stringify(jsonElement["incorrect_answers"]))];
       state.answeresArray[state.arrayIndex].answeres = (ShuffleArray(state.answeresArray[state.arrayIndex].answeres) as Array<string>);
       state.arrayIndex++;
-      console.log(state.arrayIndex);
     },
   },
   actions: {
     GetQuestionsCount({ commit }) {
-      console.log('hi')
-      axios.get(`http://localhost:3000/api/questions/${1}`)
+      axios.get(`http://179.210.60.61:3000/api/questions/${1}`)
         .then(response => {
-          console.log(response);
           commit('setTotalQuestionsNumber', response.data.questionsCount);
           this.dispatch('fetchQuestions', 1);
         });
     },
     fetchQuestions({ state, commit }, index) {
-      axios.get(`http://localhost:3000/api/questions/${index + 1}`)
+      axios.get(`http://179.210.60.61:3000/api/questions/${index + 1}`)
         .then(response => {
           commit('fetchQuestions', response);
         });
