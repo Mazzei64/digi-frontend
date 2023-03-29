@@ -39,7 +39,6 @@ export default new Vuex.Store({
 
       let arrayIndex: number = 0;
       state.jsonResult.forEach(element => {
-        if(arrayIndex == 3) return;
         state.totalQuestionsNumber++;
         const jsonElement = ParseToJson(JSON.stringify(element));
         state.answeresArray.push(new AnsweresStruct());
