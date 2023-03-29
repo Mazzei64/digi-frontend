@@ -34,34 +34,44 @@ import { computed } from 'vue';
         }
     },
     methods: {
-        GetLastChecked(checkedMap : number[], store : any) {
-            let index = 0;
+        HasChecked(store : any) : number {
+            let index : number = 0;
+            let state: number = -1;
             store.state.answeresArray[store.state.questionNumber - 1].answeres.forEach(() => {
                 const el = document.getElementById(`radnor-${index}`) as HTMLInputElement;
                 if(el != null) {
+                    if(el.checked){
+                        state = index;
+                    }
+                }
+                index++;
+            });
+            return state;
+        },
+        GetLastChecked(checkedMap : number[], store : any) : void {
+                let index = 0;
+                if(store.state.questionNumber < checkedMap.length) {
+                    store.commit('incrementQuestionNumber');
+                    const el = document.getElementById(`radnor-${checkedMap[store.state.questionNumber - 1]}`) as HTMLInputElement;
+                    el.checked = true;
+                    return;
+                }
+                const checkedIndex: number = this.HasChecked(store);
+                if(checkedIndex === -1) return;
+                
+                const el = document.getElementById(`radnor-${checkedIndex}`) as HTMLInputElement;
+                if(el != null) {
                     if(el.checked) {
-                        checkedMap.push(index);
+                        checkedMap[store.state.questionNumber - 1] = checkedIndex;
                         el.checked = false;
                         store.commit('incrementQuestionNumber');
                         return;
                     }
                 }
-                index++;
-            });
         },
-        ReturnOptions(checkedMap : number[], store : any) {
-            store.state.answeresArray[store.state.questionNumber - 1].answeres.forEach(() => {
-                let index = 0;
-                const el = document.getElementById(`radnor-${index}`) as HTMLInputElement;
-                if(el != null) {
-                    if(el.checked) {
-                       el.checked = false;
-                    }
-                }
-                index++;
-            });
+        ReturnOptions(checkedMap : number[], store : any) : void {
             store.commit('decrementQuestionNumber');
-            const lastIndex = checkedMap.pop();
+            const lastIndex = checkedMap[store.state.questionNumber - 1];
             const el = document.getElementById(`radnor-${lastIndex}`) as HTMLInputElement;
             if(el!= null) {
                 el.checked = true;
