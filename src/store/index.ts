@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import ParseToJson from './../utils/jsonType';
@@ -9,16 +9,26 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    arrayIndex: 0,
     questionNumber: 1,
     totalQuestionsNumber: 0,
     jsonResult: [Object],
-    answeresArray : [new AnsweresStruct()],
-    checkedMapLen : 0
+    answeresArray: [new AnsweresStruct()],
+    checkedMapLen: 0
   },
   getters: {
+    totalQuestionsNumber(state) {
+      return state.totalQuestionsNumber;
+    },
+    questionNumber(state) {
+      return state.questionNumber;
+    }
   },
   mutations: {
-    updateMapLen(state, len : number) {
+    incrementArrayIndex(state) {
+      state.arrayIndex++;
+    },
+    updateMapLen(state, len: number) {
       state.checkedMapLen = len;
     },
     incrementQuestionNumber(state) {
@@ -27,30 +37,37 @@ export default new Vuex.Store({
     decrementQuestionNumber(state) {
       state.questionNumber--;
     },
+    setTotalQuestionsNumber(state, totalQuestionsNumber) {
+      state.totalQuestionsNumber = totalQuestionsNumber;
+    },
     fetchQuestions(state, res) {
-      state.jsonResult = JSON.parse(JSON.stringify(res.data).replace(/%20%27/g,'\: ').replace(/%27%3F/g,'?').replace(/%27/g,'\'').replace(/%20/g,' ').replace(/%3A/g,'').replace(/%24/g,'').replace(/%2C/g,'').replace(/%3F/g,'?').replace(/%22/g,''));
+      state.jsonResult = res.data;
 
-      let arrayIndex: number = 0;
-      state.jsonResult.forEach(element => {
-        state.totalQuestionsNumber++;
-        const jsonElement = ParseToJson(JSON.stringify(element));
-        state.answeresArray.push(new AnsweresStruct());
-        state.answeresArray[arrayIndex].question = JSON.stringify(jsonElement["question"]).replace(/\"/g,'');
-        state.answeresArray[arrayIndex].correctAnswer = JSON.stringify(jsonElement["correct_answer"]).replace(/\"/g,'');
-        state.answeresArray[arrayIndex].answeres = [state.answeresArray[arrayIndex].correctAnswer, ...JSON.parse(JSON.stringify(jsonElement["incorrect_answers"]))];
-        state.answeresArray[arrayIndex].answeres = (ShuffleArray(state.answeresArray[arrayIndex].answeres) as Array<string>);
-        arrayIndex++;
-      });
-    }
+      const jsonElement = ParseToJson(JSON.stringify(res.data));
+      state.answeresArray.push(new AnsweresStruct());
+      state.answeresArray[state.arrayIndex].question = JSON.stringify(jsonElement["question"]).replace(/\"/g, '');
+      state.answeresArray[state.arrayIndex].correctAnswer = JSON.stringify(jsonElement["correct_answer"]).replace(/\"/g, '');
+      state.answeresArray[state.arrayIndex].answeres = [state.answeresArray[state.arrayIndex].correctAnswer, ...JSON.parse(JSON.stringify(jsonElement["incorrect_answers"]))];
+      state.answeresArray[state.arrayIndex].answeres = (ShuffleArray(state.answeresArray[state.arrayIndex].answeres) as Array<string>);
+      state.arrayIndex++;
+      console.log(state.arrayIndex);
+    },
   },
   actions: {
-    fetchQuestions({ commit }) {
-      axios.get('https://gist.githubusercontent.com/levismad/655fb5f6f6b11c4b603f1ae4e94e1632/raw/31473a7774bb0836dc3fc81aca9bfbd09b949d09/questions.json')
+    GetQuestionsCount({ commit }) {
+      console.log('hi')
+      axios.get(`http://localhost:3000/api/questions/${1}`)
+        .then(response => {
+          console.log(response);
+          commit('setTotalQuestionsNumber', response.data.questionsCount);
+          this.dispatch('fetchQuestions', 1);
+        });
+    },
+    fetchQuestions({ state, commit }, index) {
+      axios.get(`http://localhost:3000/api/questions/${index + 1}`)
         .then(response => {
           commit('fetchQuestions', response);
-        })
+        });
     }
-  },
-  modules: {
   }
-})
+});

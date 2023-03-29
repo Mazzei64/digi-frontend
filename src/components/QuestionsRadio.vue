@@ -59,9 +59,11 @@
                 if(el != null) {
                     if(el.checked) {
                         checkedMap[store.state.questionNumber - 1] = checkedIndex;
+                        store.state.answeresArray[store.state.questionNumber - 1].checked = store.state.answeresArray[store.state.questionNumber - 1].answeres[checkedIndex];
                         store.commit('updateMapLen', checkedMap.length);
                         el.checked = false;
                         store.commit('incrementQuestionNumber');
+                        store.dispatch('fetchQuestions', store.state.questionNumber - 1);
                         return;
                     }
                 }
