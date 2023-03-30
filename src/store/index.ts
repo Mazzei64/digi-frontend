@@ -54,14 +54,14 @@ export default new Vuex.Store({
   },
   actions: {
     GetQuestionsCount({ commit }) {
-      axios.get(`http://179.210.60.61:3000/api/questions/${1}`)
+      axios.get(`http://localhost:3000/api/questions/${1}`)
         .then(response => {
           commit('setTotalQuestionsNumber', response.data.questionsCount);
           this.dispatch('fetchQuestions', 1);
         });
     },
     fetchQuestions({ state, commit }, index) {
-      axios.get(`http://179.210.60.61:3000/api/questions/${index + 1}`)
+      axios.get(`http://localhost:3000/api/questions/${index + 1}`)
         .then(response => {
           commit('fetchQuestions', response);
         });
